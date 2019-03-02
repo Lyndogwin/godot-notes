@@ -113,7 +113,6 @@ show_behind_parent = true
 position = Vector2( 7.62939e-06, -6.38901 )
 frames = SubResource( 2 )
 animation = "default"
-frame = 3
 playing = true
 _sections_unfolded = [ "Visibility" ]
 

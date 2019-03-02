@@ -6,6 +6,7 @@ extends KinematicBody2D
 var speed = 250
 var velocity = Vector2()
 var gravity = .9
+var airtime = 100
 var grounded = is_on_floor()
 
 func _ready():
@@ -24,7 +25,8 @@ func getinput():
 	
 	# inputs work
 	if jump and is_on_floor():
-		velocity.y -= 1
+		velocity.y -= 500
+		airtime = 0
 		print("jump")
 	if right:
 		velocity.x += 1
@@ -36,8 +38,6 @@ func getinput():
 	velocity = velocity.normalized() * speed
 	
 	
-	
-
 func _physics_process(delta):
 	# the second arguement in the mov_and_slide function
 	# call is the normal vector of collision bodies considered
@@ -46,10 +46,12 @@ func _physics_process(delta):
 	move_and_slide(velocity, Vector2(0,-1))
 	
 	# simulated gravity
-	if grounded:
-		velocity.y += 0.01
-	else: 
-		velocity.y = 1
+	if is_on_floor():
+		velocity.y = 0.01
+	else:
+		airtime += 1
+		if airtime > 10:
+			velocity.y = 1
 	
 	#print("X-axis velocity is " + str(velocity.x))
 	print("Y-axis velocity is " + str(velocity.y))
