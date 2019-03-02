@@ -25,21 +25,28 @@ const WALK_FORCE = 600
 const WALK_MIN_SPEED = 10
 const WALK_MAX_SPEED = 400
 const STOP_FORCE = 3000
-const JUMP_SPEED = 600
+const JUMP_SPEED = 400
 const JUMP_MAX_AIRBORNE_TIME = 0.2
 # not used yet
 const SLIDE_STOP_VELOCITY = 1.0 # one pixel/second
 const SLIDE_STOP_MIN_TRAVEL = 1.0 # one pixel
 
+# player states
+var jumping = false
+var prev_jump_pressed = false
+var stop
+var state
+
+var ani = {walking : "walking", idle : "idle", jumping : "jumping"}
+
 # movement variables
 var velocity = Vector2()
 var on_air_time = 100
-var jumping = false
-var stop
 var force = Vector2()
 
-var prev_jump_pressed = false
 
+
+# -----------------------------------------
 # input variables
 var walk_left
 var walk_right
