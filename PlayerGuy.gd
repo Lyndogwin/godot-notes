@@ -1,13 +1,13 @@
 extends KinematicBody2D
 
 # class member variables go here, for example:
-# var a = 2
-# var b = "textvar"
-var speed = 250
+
+const gravity = 500
+const speed = 250
 var velocity = Vector2()
-var gravity = .9
-var airtime = 100
-var grounded = is_on_floor()
+var force = Vector2()
+var airtime = 20
+var grounded 
 
 func _ready():
 	# Called when the node is added to the scene for the first time.
@@ -24,8 +24,8 @@ func getinput():
 	var left = Input.is_action_pressed("LEFT")
 	
 	# inputs work
-	if jump and is_on_floor():
-		velocity.y -= 500
+	if jump and grounded:
+		velocity.y -= 1 
 		airtime = 0
 		print("jump")
 	if right:
@@ -42,16 +42,20 @@ func _physics_process(delta):
 	# the second arguement in the mov_and_slide function
 	# call is the normal vector of collision bodies considered
 	# by the programmer to be a floor
+	force = Vector2(0, gravity)
 	getinput()
 	move_and_slide(velocity, Vector2(0,-1))
 	
+	grounded = is_on_floor()
 	# simulated gravity
-	if is_on_floor():
-		velocity.y = 0.01
-	else:
-		airtime += 1
-		if airtime > 10:
-			velocity.y = 1
+	
+	#if grounded:
+		#velocity.y = 0.1
+	#else:
+		#airtime += 1
+		#velocity.x *= 10
+		#if airtime > 20:
+			#velocity.y += 1 * speed
 	
 	#print("X-axis velocity is " + str(velocity.x))
 	print("Y-axis velocity is " + str(velocity.y))

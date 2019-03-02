@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/Outsourced-assets/Other Vegetation/tree02.png" type="Texture" id=1]
-[ext_resource path="res://PlayerGuy.gd" type="Script" id=2]
+[ext_resource path="res://KinematicBody2D.gd" type="Script" id=2]
 [ext_resource path="res://assets/Outsourced-assets/Player/idle/anim1.png" type="Texture" id=3]
 [ext_resource path="res://assets/Outsourced-assets/Player/idle/anim2.png" type="Texture" id=4]
 [ext_resource path="res://assets/Outsourced-assets/Player/idle/anim3.png" type="Texture" id=5]
@@ -113,6 +113,7 @@ show_behind_parent = true
 position = Vector2( 7.62939e-06, -6.38901 )
 frames = SubResource( 2 )
 animation = "default"
+frame = 3
 playing = true
 _sections_unfolded = [ "Visibility" ]
 
