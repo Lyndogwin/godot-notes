@@ -8,7 +8,7 @@
 [ext_resource path="res://assets/Outsourced-assets/Player/idle/anim4.png" type="Texture" id=6]
 [ext_resource path="res://assets/Outsourced-assets/Other Vegetation/tree01.png" type="Texture" id=7]
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
 extents = Vector2( 10, 10 )
@@ -63,7 +63,7 @@ texture = ExtResource( 1 )
 
 [node name="KinematicBody2D" type="KinematicBody2D" parent="." index="2"]
 
-position = Vector2( 126.462, 185.89 )
+position = Vector2( 129.462, 198.89 )
 scale = Vector2( 1.25215, 1.25215 )
 input_pickable = false
 collision_layer = 1
@@ -75,7 +75,7 @@ _sections_unfolded = [ "Collision", "Pickable", "Transform", "Visibility", "Z In
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D" index="0"]
 
 show_behind_parent = true
-shape = SubResource( 4 )
+shape = SubResource( 1 )
 _sections_unfolded = [ "Visibility" ]
 
 [node name="Camera2D" type="Camera2D" parent="KinematicBody2D" index="1"]
@@ -110,6 +110,7 @@ _sections_unfolded = [ "Visibility" ]
 [node name="idleSprite" type="AnimatedSprite" parent="KinematicBody2D" index="2"]
 
 show_behind_parent = true
+position = Vector2( 7.62939e-06, -6.38901 )
 frames = SubResource( 2 )
 animation = "default"
 frame = 3
