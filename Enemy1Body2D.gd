@@ -25,13 +25,15 @@ var anim
 #bitmap player state
 var state = 0000
 
-# movement variables
+# movement calculation variables
 var velocity = Vector2()
 var on_air_time = 100
 var force = Vector2()
 
 
-# input variables
+
+# -----------------------------------------
+# movemnet control variables
 var walk_left
 var walk_right
 var jump
@@ -42,40 +44,27 @@ func _get_input():
 	jump = Input.is_action_pressed("JUMP")
 # ------------------------------------------
 
+#------------------------------------------
 func animator(request):
 	var held = anim.current_animation
 	if request != held:
 		anim.play(request)
-# ------------------------------------------
 
-func _ready():
-	anim = get_node("AnimationPlayer")
-	pass
+
 #func _process(delta):
 #	# Called every frame. Delta is time since last frame.
 #	# Update game logic here.
 #	pass
-
+func _ready():
+	anim = get_node("AnimationPlayer")
+	pass
 
 func _physics_process(delta): # delta represents the time in which one frame executes (seconds) 
 	
 	# Create forces
 	force = Vector2(0, GRAVITY)
-	# grab input
-	_get_input()
-	# ***while input is false***
-	stop = true
 
-	if walk_left:
-		if velocity.x <= WALK_MIN_SPEED and velocity.x > -WALK_MAX_SPEED:
-			animator("run")
-			force.x -= WALK_FORCE
-			stop = false
-	elif walk_right:
-		if velocity.x >= -WALK_MIN_SPEED and velocity.x < WALK_MAX_SPEED:
-			animator("run")
-			force.x += WALK_FORCE
-			stop = false
+	stop = true
 	
 	if stop:
 		animator("idle")
@@ -104,13 +93,6 @@ func _physics_process(delta): # delta represents the time in which one frame exe
 		# If falling, no longer jumping
 		jumping = false
 	
-	if on_air_time < JUMP_MAX_AIRBORNE_TIME and jump and not prev_jump_pressed and not jumping:
-		# Jump must also be allowed to happen if the character left the floor a little bit ago.
-		# Makes controls more snappy.
-		velocity.y = -JUMP_SPEED
-		jumping = true
-	
 	on_air_time += delta
-	prev_jump_pressed = jump
 	
 	print(str(delta))
