@@ -35,9 +35,10 @@ const SLIDE_STOP_MIN_TRAVEL = 1.0 # one pixel
 var jumping = false
 var prev_jump_pressed = false
 var stop
-var state
 
-var ani = {walking : "walking", idle : "idle", jumping : "jumping"}
+#bitmap player state
+var state = 0000
+
 
 # movement variables
 var velocity = Vector2()
@@ -59,11 +60,12 @@ func _get_input():
 # ------------------------------------------
 
 func _physics_process(delta): # delta represents the time in which one frame executes (seconds) 
+	get_node("AnimationPlayer").play("run")
 	# Create forces
 	force = Vector2(0, GRAVITY)
-	
+	# grab input
 	_get_input()
-	
+	# ***while input is false***
 	stop = true
 	
 	if walk_left:
