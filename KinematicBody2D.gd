@@ -1,6 +1,5 @@
 extends KinematicBody2D
 
-# Member variables
 const GRAVITY = 1000.0 # pixels/second/second
 
 # Angle in degrees towards either side that the player can consider "floor"
