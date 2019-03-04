@@ -1,21 +1,5 @@
 extends KinematicBody2D
 
-# class member variables go here, for example:
-# var a = 2
-# var b = "textvar"
-var anim
-
-func _ready():
-	anim = get_node("AnimationPlayer")
-	pass
-
-#func _process(delta):
-#	# Called every frame. Delta is time since last frame.
-#	# Update game logic here.
-#	pass
-
-# This demo shows how to build a kinematic controller.
-
 # Member variables
 const GRAVITY = 1000.0 # pixels/second/second
 
@@ -40,7 +24,6 @@ var stop
 #bitmap player state
 var state = 0000
 
-
 # movement variables
 var velocity = Vector2()
 var on_air_time = 100
@@ -60,6 +43,21 @@ func _get_input():
 	jump = Input.is_action_pressed("JUMP")
 # ------------------------------------------
 
+#------------------------------------------
+func animator(request):
+	var held = anim.current_animation
+	if request != held:
+		anim.play(request)
+
+
+#func _process(delta):
+#	# Called every frame. Delta is time since last frame.
+#	# Update game logic here.
+#	pass
+func _ready():
+	anim = get_node("AnimationPlayer")
+	pass
+
 func _physics_process(delta): # delta represents the time in which one frame executes (seconds) 
 	
 	# Create forces
@@ -71,22 +69,19 @@ func _physics_process(delta): # delta represents the time in which one frame exe
 
 	if walk_left:
 		if velocity.x <= WALK_MIN_SPEED and velocity.x > -WALK_MAX_SPEED:
-			if anim.current_animation != "run":
-				anim.play("run")
+			animator("run")
 			force.x -= WALK_FORCE
 			stop = false
 	elif walk_right:
 		if velocity.x >= -WALK_MIN_SPEED and velocity.x < WALK_MAX_SPEED:
-			if anim.current_animation != "run":
-				anim.play("run")
+			animator("run")
 			force.x += WALK_FORCE
 			stop = false
 	
 	if stop:
-		if anim.current_animation != "idle":
-			anim.play("idle")
-		var vsign = sign(velocity.x)
-		var vlen = abs(velocity.x)
+		animator("idle")
+		var vsign = sign(velocity.x) # sign returns polarity of argument 
+		var vlen = abs(velocity.x) # we're calling the abs of the x's magnitude the length
 		
 		# multiply 
 		vlen -= STOP_FORCE * delta
@@ -94,7 +89,7 @@ func _physics_process(delta): # delta represents the time in which one frame exe
 		if vlen < 0:
 			vlen = 0
 		
-		velocity.x = vlen * vsign
+		velocity.x = vlen * vsign # use the sign to convert back to original
 	
 	# Integrate forces to velocity
 	velocity += force * delta	
@@ -103,7 +98,7 @@ func _physics_process(delta): # delta represents the time in which one frame exe
 	                                                    # i.e. up vector of what should be consider
 	
 	if is_on_floor():
-		
+		# zero out air time when on floor
 		on_air_time = 0
 		
 	if jumping and velocity.y > 0:
