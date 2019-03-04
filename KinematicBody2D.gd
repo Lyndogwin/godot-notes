@@ -20,6 +20,7 @@ var jumping = false
 var prev_jump_pressed = false
 var stop
 var anim
+var sprite 
 
 
 #bitmap player state
@@ -31,7 +32,7 @@ var on_air_time = 100
 var force = Vector2()
 
 
-# input variables
+# movement control variables
 var walk_left
 var walk_right
 var jump
@@ -49,6 +50,7 @@ func animator(request):
 # ------------------------------------------
 
 func _ready():
+	sprite = get_node("sprite")
 	anim = get_node("AnimationPlayer")
 	pass
 #func _process(delta):
@@ -81,7 +83,7 @@ func _physics_process(delta): # delta represents the time in which one frame exe
 		animator("idle")
 		var vsign = sign(velocity.x) # sign returns polarity of argument 
 		var vlen = abs(velocity.x) # we're calling the abs of the x's magnitude the length
-		
+		print(str(vsign))
 		# multiply 
 		vlen -= STOP_FORCE * delta
 		
@@ -113,4 +115,4 @@ func _physics_process(delta): # delta represents the time in which one frame exe
 	on_air_time += delta
 	prev_jump_pressed = jump
 	
-	print(str(delta))
+	#print(str(delta))
