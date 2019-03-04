@@ -3,10 +3,10 @@ extends KinematicBody2D
 # class member variables go here, for example:
 # var a = 2
 # var b = "textvar"
+var anim
 
 func _ready():
-	# Called when the node is added to the scene for the first time.
-	# Initialization here
+	anim = get_node("AnimationPlayer")
 	pass
 
 #func _process(delta):
@@ -36,6 +36,7 @@ var jumping = false
 var prev_jump_pressed = false
 var stop
 
+
 #bitmap player state
 var state = 0000
 
@@ -60,24 +61,30 @@ func _get_input():
 # ------------------------------------------
 
 func _physics_process(delta): # delta represents the time in which one frame executes (seconds) 
-	get_node("AnimationPlayer").play("run")
+	
 	# Create forces
 	force = Vector2(0, GRAVITY)
 	# grab input
 	_get_input()
 	# ***while input is false***
 	stop = true
-	
+
 	if walk_left:
 		if velocity.x <= WALK_MIN_SPEED and velocity.x > -WALK_MAX_SPEED:
+			if anim.current_animation != "run":
+				anim.play("run")
 			force.x -= WALK_FORCE
 			stop = false
 	elif walk_right:
 		if velocity.x >= -WALK_MIN_SPEED and velocity.x < WALK_MAX_SPEED:
+			if anim.current_animation != "run":
+				anim.play("run")
 			force.x += WALK_FORCE
 			stop = false
 	
 	if stop:
+		if anim.current_animation != "idle":
+			anim.play("idle")
 		var vsign = sign(velocity.x)
 		var vlen = abs(velocity.x)
 		

@@ -31,33 +31,33 @@ length = 0.01
 loop = false
 step = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath(".")
+tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray(  ),
-"transitions": PoolRealArray(  ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [  ]
+"values": [ 2 ]
 }
 
 [sub_resource type="Animation" id=4]
 
-length = 1.0
+length = 0.5
 loop = true
-step = 0.2
+step = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("AnimationPlayer/Sprite:frame")
+tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
-"update": 1,
+"update": 0,
 "values": [ 0, 1, 2, 3, 4, 5 ]
 }
 
@@ -151,14 +151,31 @@ _sections_unfolded = [ "Visibility" ]
 
 visible = false
 show_behind_parent = true
-position = Vector2( 7.62939e-06, -6.38901 )
+position = Vector2( 1.52588e-05, -6.38902 )
 frames = SubResource( 2 )
 animation = "default"
-frame = 1
+frame = 2
 playing = true
 _sections_unfolded = [ "Visibility" ]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="KinematicBody2D" index="3"]
+[node name="Sprite" type="Sprite" parent="KinematicBody2D" index="3"]
+
+position = Vector2( -1.45937, -4.39948 )
+scale = Vector2( 0.798626, 0.798626 )
+texture = ExtResource( 7 )
+hframes = 6
+frame = 2
+_sections_unfolded = [ "Animation", "Offset", "Region", "Visibility" ]
+
+[node name="Sprite2" type="Sprite" parent="KinematicBody2D" index="4"]
+
+visible = false
+position = Vector2( -103.392, -158.839 )
+scale = Vector2( 0.798626, 0.798626 )
+texture = ExtResource( 8 )
+_sections_unfolded = [ "Animation" ]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="KinematicBody2D" index="5"]
 
 root_node = NodePath("..")
 autoplay = ""
@@ -169,19 +186,6 @@ anims/idle = SubResource( 3 )
 anims/run = SubResource( 4 )
 blend_times = [  ]
 _sections_unfolded = [ "Pause", "Playback Options" ]
-
-[node name="Sprite" type="Sprite" parent="KinematicBody2D/AnimationPlayer" index="0"]
-
-position = Vector2( 127.635, 193.381 )
-texture = ExtResource( 7 )
-hframes = 6
-_sections_unfolded = [ "Animation", "Offset", "Region", "Visibility" ]
-
-[node name="Sprite2" type="Sprite" parent="KinematicBody2D/AnimationPlayer" index="1"]
-
-visible = false
-texture = ExtResource( 8 )
-_sections_unfolded = [ "Animation" ]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." index="3"]
 
