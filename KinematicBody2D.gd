@@ -50,7 +50,7 @@ func animator(request):
 # ------------------------------------------
 
 func _ready():
-	sprite = get_node("sprite")
+	sprite = get_node("Sprite")
 	anim = get_node("AnimationPlayer")
 	pass
 #func _process(delta):
@@ -78,6 +78,12 @@ func _physics_process(delta): # delta represents the time in which one frame exe
 			animator("run")
 			force.x += WALK_FORCE
 			stop = false
+	
+	# flip sprite based on direction
+	if velocity.x > 0:
+		sprite.flip_h = false
+	elif velocity.x < 0:
+		sprite.flip_h = true
 	
 	if stop:
 		animator("idle")
