@@ -86,16 +86,16 @@ func _physics_process(delta): # delta represents the time in which one frame exe
 	
 	if stop:
 		animator("idle")
-		var vsign = sign(velocity.x) # sign returns polarity of argument 
+		var vsign = sign(velocity.x) # sign returns polarity of argument (-1 or 1)
 		var vlen = abs(velocity.x) # we're calling the abs of the x's magnitude the length
-		print(str(vsign))
+	
 		# multiply 
 		vlen -= STOP_FORCE * delta
 		
 		if vlen < 0:
 			vlen = 0
 		
-		velocity.x = vlen * vsign # use the sign to convert back to original
+		velocity.x = vlen * vsign # use the sign to convert back to original dir
 	
 	# Integrate forces to velocity
 	velocity += force * delta	
