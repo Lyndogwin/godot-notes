@@ -1,0 +1,148 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://KinematicBody2D.gd" type="Script" id=1]
+[ext_resource path="res://assets/Outsourced-assets/Player/idle/anim1.png" type="Texture" id=2]
+[ext_resource path="res://assets/Outsourced-assets/Player/idle/anim2.png" type="Texture" id=3]
+[ext_resource path="res://assets/Outsourced-assets/Player/idle/anim3.png" type="Texture" id=4]
+[ext_resource path="res://assets/Outsourced-assets/Player/idle/anim4.png" type="Texture" id=5]
+[ext_resource path="res://assets/platform_gfx/hero/run.png" type="Texture" id=6]
+[ext_resource path="res://assets/platform_gfx/hero/idle.png" type="Texture" id=7]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10, 10 )
+
+[sub_resource type="SpriteFrames" id=2]
+
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="Animation" id=3]
+
+resource_name = "idle"
+length = 0.01
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 2 ]
+}
+
+[sub_resource type="Animation" id=4]
+
+length = 0.5
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0, 1, 2, 3, 4, 5 ]
+}
+
+[node name="KinematicBody2D" type="KinematicBody2D"]
+
+position = Vector2( 128.993, 213.441 )
+scale = Vector2( 1.25215, 1.25215 )
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+collision/safe_margin = 0.08
+script = ExtResource( 1 )
+_sections_unfolded = [ "Collision", "Pickable", "Transform", "Visibility", "Z Index", "collision" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
+
+show_behind_parent = true
+scale = Vector2( 1, 2 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="Camera2D" type="Camera2D" parent="." index="1"]
+
+show_behind_parent = true
+position = Vector2( 0.63147, -2.86426 )
+scale = Vector2( 0.798626, 0.798626 )
+anchor_mode = 1
+rotating = false
+current = true
+zoom = Vector2( 0.3, 0.3 )
+limit_left = -10000000
+limit_top = -10000000
+limit_right = 10000000
+limit_bottom = 10000000
+limit_smoothed = false
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+smoothing_enabled = false
+smoothing_speed = 5.0
+offset_v = 0.0
+offset_h = 0.0
+drag_margin_left = 0.2
+drag_margin_top = 0.2
+drag_margin_right = 0.2
+drag_margin_bottom = 0.2
+editor_draw_screen = true
+editor_draw_limits = false
+editor_draw_drag_margin = false
+_sections_unfolded = [ "Visibility" ]
+
+[node name="idleSprite" type="AnimatedSprite" parent="." index="2"]
+
+visible = false
+show_behind_parent = true
+position = Vector2( 1.52588e-05, -6.38902 )
+frames = SubResource( 2 )
+animation = "default"
+playing = true
+_sections_unfolded = [ "Visibility" ]
+
+[node name="Sprite" type="Sprite" parent="." index="3"]
+
+position = Vector2( -1.45937, -4.39948 )
+scale = Vector2( 0.798626, 0.798626 )
+texture = ExtResource( 6 )
+hframes = 6
+frame = 1
+_sections_unfolded = [ "Animation", "Offset", "Region", "Transform", "Visibility" ]
+
+[node name="Sprite2" type="Sprite" parent="." index="4"]
+
+visible = false
+position = Vector2( -103.392, -158.839 )
+scale = Vector2( 0.798626, 0.798626 )
+texture = ExtResource( 7 )
+_sections_unfolded = [ "Animation" ]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
+
+root_node = NodePath("..")
+autoplay = ""
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 1.0
+anims/idle = SubResource( 3 )
+anims/run = SubResource( 4 )
+blend_times = [  ]
+_sections_unfolded = [ "Pause", "Playback Options" ]
+
+
