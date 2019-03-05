@@ -22,6 +22,7 @@ var dir = 1
 
 # sprite visual
 var sprite
+var anim
 
 
 func move():
@@ -40,9 +41,16 @@ func move():
 	if dir == 1:
 		sprite.flip_h = false # make sure the sprite is flipped correctly
 	
+	animator("idle")
+	
+func animator(request):
+	var held = anim.current_animation
+	if request != held:
+		anim.play(request)
 
 func _ready():
 	sprite = get_node("Sprite")
+	anim = get_node("AnimationPlayer")
 	pass
 
 #func _process(delta):
