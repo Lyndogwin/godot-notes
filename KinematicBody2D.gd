@@ -44,7 +44,7 @@ func _get_input():
 	walk_left = Input.is_action_pressed("LEFT")
 	walk_right = Input.is_action_pressed("RIGHT")
 	jump = Input.is_action_pressed("JUMP")
-	attack = Input.is_action_pressed("ATTACK")
+	attack = Input.is_action_just_pressed("ATTACK")
 # ------------------------------------------
 
 func animator(request):

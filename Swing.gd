@@ -1,5 +1,5 @@
 extends Area2D
-const MAX_TIME = 0.2
+const MAX_TIME = 0.02
 
 var swingtime = 0
 
