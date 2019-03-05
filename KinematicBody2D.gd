@@ -13,9 +13,12 @@ const JUMP_MAX_AIRBORNE_TIME = 0.2
 # not used yet
 const SLIDE_STOP_VELOCITY = 1.0 # one pixel/second
 const SLIDE_STOP_MIN_TRAVEL = 1.0 # one pixel
+# scene preloads
+const SWORD = preload("res://swordattack.tscn")
 
 # player states
 var jumping = false
+var on_air_time = 100
 var prev_jump_pressed = false
 var stop
 var anim
@@ -25,21 +28,23 @@ var sprite
 #bitmap player state
 var state = 0000
 
-# movement variables
+# position variables
 var velocity = Vector2()
-var on_air_time = 100
 var force = Vector2()
+var forward 
 
 
 # movement control variables
 var walk_left
 var walk_right
 var jump
+var attack
 
 func _get_input():
 	walk_left = Input.is_action_pressed("LEFT")
 	walk_right = Input.is_action_pressed("RIGHT")
 	jump = Input.is_action_pressed("JUMP")
+	attack = Input.is_action_pressed("ATTACK")
 # ------------------------------------------
 
 func animator(request):
@@ -51,14 +56,14 @@ func animator(request):
 func _ready():
 	sprite = get_node("Sprite")
 	anim = get_node("AnimationPlayer")
+	forward = get_node("Position2D").global_position
 	pass
 #func _process(delta):
 #	# Called every frame. Delta is time since last frame.
 #	# Update game logic here.
 #	pass
 func move(delta):
-	# grab input
-	_get_input()
+	
 	# ***while input is false***
 	stop = true
 
@@ -92,13 +97,21 @@ func move(delta):
 		
 		velocity.x = vlen * vsign # use the sign to convert back to original dir
 
+func attack():
+	if attack:
+		var sword = SWORD.instance()
+		get_parent().add_child(sword)
+		sword.position = forward
+
 func _physics_process(delta): # delta represents the time in which one frame executes (seconds) 
 	
 	# Create forces
 	force = Vector2(0, GRAVITY)
-	
-	move(delta)
+	# grab input
+	_get_input()
 
+	move(delta)
+	attack()
 	# Integrate forces to velocity
 	velocity += force * delta	
 	# Integrate velocity into motion and move

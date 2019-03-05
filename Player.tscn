@@ -59,7 +59,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5 ]
 }
 
-[node name="KinematicBody2D" type="KinematicBody2D"]
+[node name="KinematicBody2D" type="KinematicBody2D" index="0"]
 
 position = Vector2( 128.993, 213.441 )
 scale = Vector2( 1.25215, 1.25215 )
@@ -70,14 +70,19 @@ collision/safe_margin = 0.08
 script = ExtResource( 1 )
 _sections_unfolded = [ "Collision", "Pickable", "Transform", "Visibility", "Z Index", "collision" ]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
+[node name="Position2D" type="Position2D" parent="." index="0"]
+
+position = Vector2( 10, 4 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
 
 show_behind_parent = true
 scale = Vector2( 1, 2 )
 shape = SubResource( 1 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="Camera2D" type="Camera2D" parent="." index="1"]
+[node name="Camera2D" type="Camera2D" parent="." index="2"]
 
 show_behind_parent = true
 position = Vector2( 0.63147, -2.86426 )
@@ -106,18 +111,18 @@ editor_draw_limits = false
 editor_draw_drag_margin = false
 _sections_unfolded = [ "Visibility" ]
 
-[node name="idleSprite" type="AnimatedSprite" parent="." index="2"]
+[node name="idleSprite" type="AnimatedSprite" parent="." index="3"]
 
 visible = false
 show_behind_parent = true
 position = Vector2( 1.52588e-05, -6.38902 )
 frames = SubResource( 2 )
 animation = "default"
-frame = 2
+frame = 3
 playing = true
 _sections_unfolded = [ "Visibility" ]
 
-[node name="Sprite" type="Sprite" parent="." index="3"]
+[node name="Sprite" type="Sprite" parent="." index="4"]
 
 position = Vector2( -1.45937, -4.39948 )
 scale = Vector2( 0.798626, 0.798626 )
@@ -126,7 +131,7 @@ hframes = 6
 frame = 1
 _sections_unfolded = [ "Animation", "Offset", "Region", "Transform", "Visibility" ]
 
-[node name="Sprite2" type="Sprite" parent="." index="4"]
+[node name="Sprite2" type="Sprite" parent="." index="5"]
 
 visible = false
 position = Vector2( -103.392, -158.839 )
@@ -134,7 +139,7 @@ scale = Vector2( 0.798626, 0.798626 )
 texture = ExtResource( 7 )
 _sections_unfolded = [ "Animation" ]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="6"]
 
 root_node = NodePath("..")
 autoplay = ""
