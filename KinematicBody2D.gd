@@ -56,12 +56,7 @@ func _ready():
 #	# Called every frame. Delta is time since last frame.
 #	# Update game logic here.
 #	pass
-
-
-func _physics_process(delta): # delta represents the time in which one frame executes (seconds) 
-	
-	# Create forces
-	force = Vector2(0, GRAVITY)
+func move(delta):
 	# grab input
 	_get_input()
 	# ***while input is false***
@@ -96,12 +91,19 @@ func _physics_process(delta): # delta represents the time in which one frame exe
 			vlen = 0
 		
 		velocity.x = vlen * vsign # use the sign to convert back to original dir
+
+func _physics_process(delta): # delta represents the time in which one frame executes (seconds) 
 	
+	# Create forces
+	force = Vector2(0, GRAVITY)
+	
+	move(delta)
+
 	# Integrate forces to velocity
 	velocity += force * delta	
 	# Integrate velocity into motion and move
 	velocity = move_and_slide(velocity, Vector2(0, -1)) # second argument is the decided floor normal 
-	                                                    # i.e. up vector of what should be consider
+	                                                    # i.e. up vector of what should be considered floor
 	
 	if is_on_floor():
 		# zero out air time when on floor
