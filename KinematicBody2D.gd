@@ -56,7 +56,7 @@ func animator(request):
 func _ready():
 	sprite = get_node("Sprite")
 	anim = get_node("AnimationPlayer")
-	forward = get_node("Position2D").global_position
+	
 	pass
 #func _process(delta):
 #	# Called every frame. Delta is time since last frame.
@@ -98,6 +98,7 @@ func move(delta):
 		velocity.x = vlen * vsign # use the sign to convert back to original dir
 
 func attack():
+	forward = get_node("Position2D").global_position
 	if attack:
 		var sword = SWORD.instance()
 		get_parent().add_child(sword)
