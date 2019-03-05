@@ -25,21 +25,20 @@ var sprite
 
 
 func move():
-	var fall_check = get_node("ledgeCheck")
-	print(str(fall_check.is_colliding()))
+	var fall_check = get_node("ledgeCheck") # ledgeCheck is a raycast
+	print(str(fall_check.is_colliding())) # check raycast collision
 	
 	if fall_check.is_colliding() == false:
-		dir *= -1
-		sprite.flip_h = true
-		fall_check.position.x *= -1
-		print(str(fall_check.position.x))
-
-		velocity.x = 0
+		dir *= -1 # prep direction change
+		velocity.x = 0 # stop the body 
+		sprite.flip_h = true # flip the sprite
+		fall_check.position.x *= -1 # flip the raycast to begin checking in the other direction
+		print(str(fall_check.position.x)) # monitor raycast position
 	
-	force.x += WALK_FORCE * dir
+	force.x += WALK_FORCE * dir # change 
 
 	if dir == 1:
-		sprite.flip_h = false
+		sprite.flip_h = false # make sure the sprite is flipped correctly
 	
 
 func _ready():
@@ -53,8 +52,8 @@ func _ready():
 
 func _physics_process(delta):
 	force = Vector2(0, GRAVITY)
-	move()
-	#TODO: ADD MOVEMENT FUNTION
+	
+	move() # fuction holds movement logic
 
 	velocity += force * delta
 
