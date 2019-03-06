@@ -31,6 +31,7 @@ var state = 0000
 # position variables
 var velocity = Vector2()
 var force = Vector2()
+var direction = 1
 var forward 
 
 
@@ -80,8 +81,10 @@ func move(delta):
 	
 	# flip sprite based on direction
 	if velocity.x > 0:
+		direction = 1
 		sprite.flip_h = false
 	elif velocity.x < 0:
+		direction = -1
 		sprite.flip_h = true
 	
 	if stop:
@@ -102,6 +105,7 @@ func attack():
 	if attack:
 		var sword = SWORD.instance()
 		get_parent().add_child(sword)
+		sword.direction(direction)
 		sword.position = forward
 
 func _physics_process(delta): # delta represents the time in which one frame executes (seconds) 

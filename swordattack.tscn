@@ -8,8 +8,9 @@
 custom_solver_bias = 0.0
 extents = Vector2( 26.1892, 4.77905 )
 
-[node name="Swing" type="Area2D" index="0"]
+[node name="Swing" type="Area2D"]
 
+z_as_relative = false
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -18,18 +19,19 @@ angular_damp = 1.0
 audio_bus_override = false
 audio_bus_name = "Master"
 script = ExtResource( 1 )
+_sections_unfolded = [ "Collision", "Transform", "Z Index" ]
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
 
 rotation = 2.35619
 scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 2 )
-_sections_unfolded = [ "Transform" ]
+_sections_unfolded = [ "Offset", "Transform" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
 
-position = Vector2( 14.499, 0 )
-scale = Vector2( 0.503275, 1 )
+position = Vector2( 1.64956, 0 )
+scale = Vector2( 0.943487, 1 )
 shape = SubResource( 1 )
 
 
