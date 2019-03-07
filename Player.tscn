@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://KinematicBody2D.gd" type="Script" id=1]
 [ext_resource path="res://assets/Outsourced-assets/Player/idle/anim1.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://assets/Outsourced-assets/Player/idle/anim4.png" type="Texture" id=5]
 [ext_resource path="res://assets/platform_gfx/hero/run.png" type="Texture" id=6]
 [ext_resource path="res://assets/platform_gfx/hero/idle.png" type="Texture" id=7]
+[ext_resource path="res://SwordRange.gd" type="Script" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -123,7 +124,6 @@ show_behind_parent = true
 position = Vector2( 1.52588e-05, -6.38902 )
 frames = SubResource( 2 )
 animation = "default"
-frame = 3
 playing = true
 _sections_unfolded = [ "Visibility" ]
 
@@ -167,6 +167,7 @@ linear_damp = 0.1
 angular_damp = 1.0
 audio_bus_override = false
 audio_bus_name = "Master"
+script = ExtResource( 8 )
 _sections_unfolded = [ "Collision", "Transform" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SwordRange" index="0"]

@@ -23,7 +23,7 @@ var prev_jump_pressed = false
 var stop
 var anim
 var sprite 
-
+var attack_range
 
 #bitmap player state
 var state = 0000
@@ -34,6 +34,8 @@ var force = Vector2()
 var direction = 1
 var forward 
 
+# relative objects
+var enemies_in_range = []
 
 # movement control variables
 var walk_left
@@ -66,7 +68,10 @@ func print_timer(sub,delta):
 func _ready():
 	sprite = get_node("Sprite")
 	anim = get_node("AnimationPlayer")
+	attack_range = get_node("SwordRange")
 	forward = get_node("Position2D")
+
+	attack_range.connect("body_entered", self, "_on_SwordRange_body_entered")
 	pass
 #func _process(delta):
 #	# Called every frame. Delta is time since last frame.
@@ -114,9 +119,15 @@ func move(delta):
 		
 		velocity.x = vlen * vsign # use the sign to convert back to original dir
 
-#!!!!!!!!func attack(delta):
+func _on_SwordRange_body_entered(body):
+	if "Enemy1" in body.name:
+		enemies_in_range.push_back(body)
+
+func attack(delta):
 	
-	#if attack:
+	if attack:
+		for i in range(enemies_in_range.size()):
+			enemies_in_range[i].die()
 		#var sword = SWORD.instance()
 		#get_parent().add_child(sword)
 		#sword.direction(direction)
@@ -132,7 +143,7 @@ func _physics_process(delta): # delta represents the time in which one frame exe
 
 	move(delta)
 
-	# !!!!!!attack(delta)
+	attack(delta)
 	
 	# Integrate forces to velocity
 	velocity += force * delta	
