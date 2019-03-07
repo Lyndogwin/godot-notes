@@ -41,6 +41,9 @@ var walk_right
 var jump
 var attack
 
+# timers
+var timer = 0
+
 func _get_input():
 	walk_left = Input.is_action_pressed("LEFT")
 	walk_right = Input.is_action_pressed("RIGHT")
@@ -54,10 +57,16 @@ func animator(request):
 		anim.play(request)
 # ------------------------------------------
 
+func print_timer(sub,delta):
+	timer += delta
+	if timer > 0.5:
+		print(sub)
+		timer = 0
+
 func _ready():
 	sprite = get_node("Sprite")
 	anim = get_node("AnimationPlayer")
-	
+	forward = get_node("Position2D")
 	pass
 #func _process(delta):
 #	# Called every frame. Delta is time since last frame.
@@ -73,19 +82,24 @@ func move(delta):
 			animator("run")
 			force.x -= WALK_FORCE
 			stop = false
+			direction = -1
 	elif walk_right:
 		if velocity.x >= -WALK_MIN_SPEED and velocity.x < WALK_MAX_SPEED:
 			animator("run")
 			force.x += WALK_FORCE
 			stop = false
+			direction = 1
 	
 	# flip sprite based on direction
-	if velocity.x > 0:
-		direction = 1
+	
+	if direction > 0:
+		forward.position.x *= direction
 		sprite.flip_h = false
-	elif velocity.x < 0:
-		direction = -1
+	elif direction < 0:
+		forward.position.x *= direction
 		sprite.flip_h = true
+	
+	print_timer("forward position " + str(forward.position.x), delta)
 	
 	if stop:
 		animator("idle")
@@ -100,13 +114,14 @@ func move(delta):
 		
 		velocity.x = vlen * vsign # use the sign to convert back to original dir
 
-func attack():
-	forward = get_node("Position2D").global_position
-	if attack:
-		var sword = SWORD.instance()
-		get_parent().add_child(sword)
-		sword.direction(direction)
-		sword.position = forward
+#!!!!!!!!func attack(delta):
+	
+	#if attack:
+		#var sword = SWORD.instance()
+		#get_parent().add_child(sword)
+		#sword.direction(direction)
+		#sword.position = forward.global_position 
+		#print_timer("sword position " + str(sword.position.x), delta)
 
 func _physics_process(delta): # delta represents the time in which one frame executes (seconds) 
 	
@@ -116,7 +131,9 @@ func _physics_process(delta): # delta represents the time in which one frame exe
 	_get_input()
 
 	move(delta)
-	attack()
+
+	# !!!!!!attack(delta)
+	
 	# Integrate forces to velocity
 	velocity += force * delta	
 	# Integrate velocity into motion and move

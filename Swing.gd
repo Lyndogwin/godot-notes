@@ -2,13 +2,13 @@ extends Area2D
 const MAX_TIME = 0.02
 
 var swingtime = 0
-var direction = 1
+var direction 
 var sprite
 var collisionshape
 
 
 func _ready():
-	sprite = get_node("Sprite")
+	sprite = get_node("Sprite_container")
 	collisionshape = get_node("CollisionShape2D")
 	pass
 
@@ -18,12 +18,10 @@ func _ready():
 #	pass
 func direction(dir):
 	direction = dir
-	if dir < 0:
+	if dir > 0:
+		sprite.flip_h = false 
+	elif dir < 0:
 		sprite.flip_h = true
-		#collisionshape.flip_h = true 
-	else:
-		sprite.flip_h = false
-		#collisionshape.flip_h = true
 
 
 func _physics_process(delta):

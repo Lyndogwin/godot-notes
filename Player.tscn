@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://KinematicBody2D.gd" type="Script" id=1]
 [ext_resource path="res://assets/Outsourced-assets/Player/idle/anim1.png" type="Texture" id=2]
@@ -59,13 +59,18 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5 ]
 }
 
-[node name="KinematicBody2D" type="KinematicBody2D"]
+[sub_resource type="RectangleShape2D" id=5]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10, 10 )
+
+[node name="KinematicBody2D" type="KinematicBody2D" index="0"]
 
 position = Vector2( 128.993, 213.441 )
 scale = Vector2( 1.25215, 1.25215 )
 input_pickable = false
 collision_layer = 1
-collision_mask = 1
+collision_mask = 3
 collision/safe_margin = 0.08
 script = ExtResource( 1 )
 _sections_unfolded = [ "Collision", "Pickable", "Transform", "Visibility", "Z Index", "collision" ]
@@ -73,7 +78,7 @@ _sections_unfolded = [ "Collision", "Pickable", "Transform", "Visibility", "Z In
 [node name="Position2D" type="Position2D" parent="." index="0"]
 
 position = Vector2( 14, 4 )
-_sections_unfolded = [ "Transform" ]
+_sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
 
@@ -118,7 +123,7 @@ show_behind_parent = true
 position = Vector2( 1.52588e-05, -6.38902 )
 frames = SubResource( 2 )
 animation = "default"
-frame = 2
+frame = 3
 playing = true
 _sections_unfolded = [ "Visibility" ]
 
@@ -150,5 +155,23 @@ anims/idle = SubResource( 3 )
 anims/run = SubResource( 4 )
 blend_times = [  ]
 _sections_unfolded = [ "Pause", "Playback Options" ]
+
+[node name="SwordRange" type="Area2D" parent="." index="7"]
+
+position = Vector2( 14, 4 )
+scale = Vector2( 1.5, 0.3 )
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Collision", "Transform" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SwordRange" index="0"]
+
+shape = SubResource( 5 )
+_sections_unfolded = [ "Transform", "Z Index" ]
 
 

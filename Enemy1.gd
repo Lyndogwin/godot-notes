@@ -27,7 +27,7 @@ var anim
 
 func move():
 	var fall_check = get_node("ledgeCheck") # ledgeCheck is a raycast
-	print(str(fall_check.is_colliding())) # check raycast collision
+	#print(str(fall_check.is_colliding())) # check raycast collision
 	
 	if fall_check.is_colliding() == false:
 		dir *= -1 # prep direction change
@@ -47,6 +47,9 @@ func animator(request):
 	var held = anim.current_animation
 	if request != held:
 		anim.play(request)
+
+func die():
+	queue_free()
 
 func _ready():
 	sprite = get_node("Sprite")
