@@ -73,10 +73,12 @@ func _ready():
 
 	attack_range.connect("body_entered", self, "_on_SwordRange_body_entered")
 	pass
+
 #func _process(delta):
 #	# Called every frame. Delta is time since last frame.
 #	# Update game logic here.
 #	pass
+
 func move(delta):
 	
 	# ***while input is false***
@@ -96,7 +98,7 @@ func move(delta):
 			direction = 1
 	
 	# flip sprite based on direction
-	
+	attack_range.direction(direction)
 	if direction > 0:
 		forward.position.x *= direction
 		sprite.flip_h = false

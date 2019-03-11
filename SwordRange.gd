@@ -6,7 +6,10 @@ func _ready():
 	# Initialization here
 	pass
 
-func direction():
+func direction(dir):
+	if direction != dir:
+		direction = dir
+		position.x *= -1 
 	pass
 #func _process(delta):
 #	# Called every frame. Delta is time since last frame.
