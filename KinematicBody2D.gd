@@ -13,6 +13,7 @@ const JUMP_MAX_AIRBORNE_TIME = 0.2
 # not used yet
 const SLIDE_STOP_VELOCITY = 1.0 # one pixel/second
 const SLIDE_STOP_MIN_TRAVEL = 1.0 # one pixel
+
 # scene preloads
 const SWORD = preload("res://swordattack.tscn")
 
@@ -46,6 +47,8 @@ var attack
 # timers
 var timer = 0
 
+#------------------------------------
+
 func _get_input():
 	walk_left = Input.is_action_pressed("LEFT")
 	walk_right = Input.is_action_pressed("RIGHT")
@@ -64,20 +67,23 @@ func print_timer(sub,delta):
 	if timer > 0.5:
 		print(sub)
 		timer = 0
+# --------------------------------------------
 
 func _ready():
 	sprite = get_node("Sprite")
 	anim = get_node("AnimationPlayer")
 	attack_range = get_node("SwordRange")
 	forward = get_node("ForwardPosition2D")
-
-	attack_range.connect("body_entered", self, "_on_SwordRange_body_entered")
+	# connect signal => connect("signalname", object_to_listen, "full_signal_name")
+	attack_range.connect("body_entered", self, "_on_SwordRange_body_entered") 
 	pass
+# -------------------------------------------
 
 #func _process(delta):
 #	# Called every frame. Delta is time since last frame.
 #	# Update game logic here.
 #	pass
+#-------------------------------------------
 
 func move(delta):
 	
@@ -98,8 +104,8 @@ func move(delta):
 			direction = 1
 	
 	# flip sprite based on direction
-	attack_range.direction(direction)
-	forward.direction(direction)
+	attack_range.direction(direction) # change melee hitbox direction
+	forward.direction(direction) # change forward direction
 	if direction > 0:
 		sprite.flip_h = false
 	elif direction < 0:
@@ -119,10 +125,12 @@ func move(delta):
 			vlen = 0
 		
 		velocity.x = vlen * vsign # use the sign to convert back to original dir
+# -------------------------------------------------------------------
 
 func _on_SwordRange_body_entered(body):
 	if "Enemy1" in body.name:
 		enemies_in_range.push_back(body)
+# --------------------------------------
 
 func attack(delta):
 	
@@ -134,6 +142,7 @@ func attack(delta):
 		#sword.direction(direction)
 		#sword.position = forward.global_position 
 		#print_timer("sword position " + str(sword.position.x), delta)
+#--------------------------------------
 
 func _physics_process(delta): # delta represents the time in which one frame executes (seconds) 
 	
@@ -170,3 +179,4 @@ func _physics_process(delta): # delta represents the time in which one frame exe
 	prev_jump_pressed = jump
 	
 	#print(str(delta))
+#--------------------------------------------------------
