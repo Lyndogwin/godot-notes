@@ -1,13 +1,14 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://KinematicBody2D.gd" type="Script" id=1]
-[ext_resource path="res://assets/Outsourced-assets/Player/idle/anim1.png" type="Texture" id=2]
-[ext_resource path="res://assets/Outsourced-assets/Player/idle/anim2.png" type="Texture" id=3]
-[ext_resource path="res://assets/Outsourced-assets/Player/idle/anim3.png" type="Texture" id=4]
-[ext_resource path="res://assets/Outsourced-assets/Player/idle/anim4.png" type="Texture" id=5]
-[ext_resource path="res://assets/platform_gfx/hero/run.png" type="Texture" id=6]
-[ext_resource path="res://assets/platform_gfx/hero/idle.png" type="Texture" id=7]
-[ext_resource path="res://SwordRange.gd" type="Script" id=8]
+[ext_resource path="res://ForwardPosition2D.gd" type="Script" id=2]
+[ext_resource path="res://assets/Outsourced-assets/Player/idle/anim1.png" type="Texture" id=3]
+[ext_resource path="res://assets/Outsourced-assets/Player/idle/anim2.png" type="Texture" id=4]
+[ext_resource path="res://assets/Outsourced-assets/Player/idle/anim3.png" type="Texture" id=5]
+[ext_resource path="res://assets/Outsourced-assets/Player/idle/anim4.png" type="Texture" id=6]
+[ext_resource path="res://assets/platform_gfx/hero/run.png" type="Texture" id=7]
+[ext_resource path="res://assets/platform_gfx/hero/idle.png" type="Texture" id=8]
+[ext_resource path="res://SwordRange.gd" type="Script" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -17,7 +18,7 @@ extents = Vector2( 10, 10 )
 [sub_resource type="SpriteFrames" id=2]
 
 animations = [ {
-"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ],
+"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
@@ -76,9 +77,10 @@ collision/safe_margin = 0.08
 script = ExtResource( 1 )
 _sections_unfolded = [ "Collision", "Pickable", "Transform", "Visibility", "Z Index", "collision" ]
 
-[node name="Position2D" type="Position2D" parent="." index="0"]
+[node name="ForwardPosition2D" type="Position2D" parent="." index="0"]
 
 position = Vector2( 14, 4 )
+script = ExtResource( 2 )
 _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
@@ -124,6 +126,7 @@ show_behind_parent = true
 position = Vector2( 1.52588e-05, -6.38902 )
 frames = SubResource( 2 )
 animation = "default"
+frame = 1
 playing = true
 _sections_unfolded = [ "Visibility" ]
 
@@ -131,7 +134,7 @@ _sections_unfolded = [ "Visibility" ]
 
 position = Vector2( -1.45937, -4.39948 )
 scale = Vector2( 0.798626, 0.798626 )
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 hframes = 6
 frame = 1
 _sections_unfolded = [ "Animation", "Offset", "Region", "Transform", "Visibility" ]
@@ -141,7 +144,7 @@ _sections_unfolded = [ "Animation", "Offset", "Region", "Transform", "Visibility
 visible = false
 position = Vector2( -103.392, -158.839 )
 scale = Vector2( 0.798626, 0.798626 )
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 _sections_unfolded = [ "Animation" ]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="6"]
@@ -167,7 +170,7 @@ linear_damp = 0.1
 angular_damp = 1.0
 audio_bus_override = false
 audio_bus_name = "Master"
-script = ExtResource( 8 )
+script = ExtResource( 9 )
 _sections_unfolded = [ "Collision", "Transform" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SwordRange" index="0"]

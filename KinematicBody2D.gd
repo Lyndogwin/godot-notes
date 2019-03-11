@@ -69,7 +69,7 @@ func _ready():
 	sprite = get_node("Sprite")
 	anim = get_node("AnimationPlayer")
 	attack_range = get_node("SwordRange")
-	forward = get_node("Position2D")
+	forward = get_node("ForwardPosition2D")
 
 	attack_range.connect("body_entered", self, "_on_SwordRange_body_entered")
 	pass
@@ -99,11 +99,10 @@ func move(delta):
 	
 	# flip sprite based on direction
 	attack_range.direction(direction)
+	forward.direction(direction)
 	if direction > 0:
-		forward.position.x *= direction
 		sprite.flip_h = false
 	elif direction < 0:
-		forward.position.x *= direction
 		sprite.flip_h = true
 	
 	print_timer("forward position " + str(forward.position.x), delta)
