@@ -127,6 +127,9 @@ func move(delta):
 		velocity.x = vlen * vsign # use the sign to convert back to original dir
 # -------------------------------------------------------------------
 
+# this is a signal listener function that will cause an interupt 
+# if the signal is called from the external object 
+# see the call to connect the signal in the ready() function
 func _on_SwordRange_body_entered(body):
 	if "Enemy1" in body.name:
 		enemies_in_range.push_back(body)
