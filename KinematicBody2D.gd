@@ -44,6 +44,9 @@ var walk_right
 var jump
 var attack
 
+# character attributes 
+var attackpwr = 20
+
 # timers
 var timer = 0
 
@@ -75,7 +78,8 @@ func _ready():
 	attack_range = get_node("SwordRange")
 	forward = get_node("ForwardPosition2D")
 	# connect signal => connect("signalname", object_to_listen, "full_signal_name")
-	attack_range.connect("body_entered", self, "_on_SwordRange_body_entered") 
+	attack_range.connect("body_entered", self, "_on_SwordRange_body_entered")
+	attack_range.connect("body_exited", self, "_on_SwordRange_body_exited") 
 	pass
 # -------------------------------------------
 
@@ -133,13 +137,21 @@ func move(delta):
 func _on_SwordRange_body_entered(body):
 	if "Enemy1" in body.name:
 		enemies_in_range.push_back(body)
+		print("Enemy " + str(body.name) + " Entered range")
 # --------------------------------------
+
+func _on_SwordRange_body_exited(body):
+	for i in enemies_in_range.size():
+		if enemies_in_range[i].name == body.name:
+			enemies_in_range.remove(i)
+			print("Enemy " + str(body.name) + " Left range")
+# ------------------------------
 
 func attack(delta):
 	
 	if attack:
 		for i in range(enemies_in_range.size()):
-			enemies_in_range[i].die()
+			enemies_in_range[i].take_damage(attackpwr)
 		#var sword = SWORD.instance()
 		#get_parent().add_child(sword)
 		#sword.direction(direction)

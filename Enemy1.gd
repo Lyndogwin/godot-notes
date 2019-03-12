@@ -24,6 +24,10 @@ var dir = 1
 var sprite
 var anim
 
+# character attributes ==> should be included in a separate class
+var MAX_HEALTH = 100
+var defense = 5
+var health 
 
 func move():
 	var fall_check = get_node("ledgeCheck") # ledgeCheck is a raycast
@@ -48,12 +52,21 @@ func animator(request):
 	if request != held:
 		anim.play(request)
 
+# these should go in a character class 
 func die():
 	queue_free()
+
+func take_damage(damage):
+	var true_damage = damage - defense
+	health -= true_damage
+	print(str(self.name) + " Took " + str(true_damage) + " points of damage!")
+	if health <= 0: 
+		die()
 
 func _ready():
 	sprite = get_node("Sprite")
 	anim = get_node("AnimationPlayer")
+	health = MAX_HEALTH
 	pass
 
 #func _process(delta):
