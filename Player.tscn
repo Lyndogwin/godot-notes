@@ -126,6 +126,7 @@ show_behind_parent = true
 position = Vector2( 1.52588e-05, -6.38902 )
 frames = SubResource( 2 )
 animation = "default"
+frame = 3
 playing = true
 _sections_unfolded = [ "Visibility" ]
 
@@ -135,7 +136,7 @@ position = Vector2( -1.45937, -4.39948 )
 scale = Vector2( 0.798626, 0.798626 )
 texture = ExtResource( 7 )
 hframes = 6
-frame = 1
+frame = 4
 _sections_unfolded = [ "Animation", "Offset", "Region", "Transform", "Visibility" ]
 
 [node name="Sprite2" type="Sprite" parent="." index="5"]

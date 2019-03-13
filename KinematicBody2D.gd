@@ -93,30 +93,36 @@ func move(delta):
 	
 	# ***while input is false***
 	stop = true
-
+	var prev_dir = direction
 	if walk_left:
 		if velocity.x <= WALK_MIN_SPEED and velocity.x > -WALK_MAX_SPEED:
-			animator("run")
 			force.x -= WALK_FORCE
 			stop = false
-			direction = -1
+		direction = -1
+		animator("run")
 	elif walk_right:
 		if velocity.x >= -WALK_MIN_SPEED and velocity.x < WALK_MAX_SPEED:
-			animator("run")
 			force.x += WALK_FORCE
 			stop = false
-			direction = 1
+		direction = 1
+		animator("run")
 	
-	# flip sprite based on direction
+	
 	attack_range.direction(direction) # change melee hitbox direction
 	forward.direction(direction) # change forward direction
-	if direction > 0:
-		sprite.flip_h = false
-	elif direction < 0:
-		sprite.flip_h = true
+	
+	# flip sprite based on direction
+	
+	if direction != prev_dir:
+		if direction > 0:
+			sprite.flip_h = false
+		elif direction < 0:
+			sprite.flip_h = true
 	
 	print_timer("forward position " + str(forward.position.x), delta)
 	
+	# ***TODO: there's an issue with this causing the stop to be true  
+	# for intermediate frames when max speed is reached
 	if stop:
 		animator("idle")
 		var vsign = sign(velocity.x) # sign returns polarity of argument (-1 or 1)
