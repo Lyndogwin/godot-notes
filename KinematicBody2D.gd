@@ -22,8 +22,11 @@ var jumping = false
 var on_air_time = 100
 var prev_jump_pressed = false
 var stop
+
+# essential external node variables
 var anim
 var sprite 
+var forward 
 var attack_range
 
 #bitmap player state
@@ -33,7 +36,7 @@ var state = 0000
 var velocity = Vector2()
 var force = Vector2()
 var direction = 1
-var forward 
+
 
 # relative objects
 var enemies_in_range = []
