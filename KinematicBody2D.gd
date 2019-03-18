@@ -30,7 +30,15 @@ var forward
 var attack_range
 
 #bitmap player state
-var state = 0000
+var state = 00000000
+const START = 00000000
+const IN_AIR = 00000001
+const JUMPING = 00000010
+const LAUNCHED = 10000000
+const DAMAGED = 01000000
+const STAGGERED = 00100000
+const DIR_LEFT = 00010000
+const DIR_RIGHT = 00001000
 
 # position variables
 var velocity = Vector2()
