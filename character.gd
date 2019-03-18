@@ -11,6 +11,18 @@ const JUMP_MAX_AIRBORNE_TIME = 0.2
 const SLIDE_STOP_VELOCITY = 1.0 # one pixel/second
 const SLIDE_STOP_MIN_TRAVEL = 1.0 # one pixel
 
+# @ bitmap player state
+var state = 00000000       ##
+const START = 00000000     ##
+const IN_AIR = 00000001    ##
+const JUMPING = 00000010   ##
+const LAUNCHED = 10000000  ##
+const DAMAGED = 01000000   ##
+const STAGGERED = 00100000 ##
+const DIR_LEFT = 00010000  ##
+const DIR_RIGHT = 00001000 ##
+#############################
+
 # @ utility variables 
 var  timer                 ##
 #############################
