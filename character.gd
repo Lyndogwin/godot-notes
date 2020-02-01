@@ -29,13 +29,13 @@ var  timer                 ##
 
 # @ character attributes
 var hp                     ## character hit points
+var exp                    ## experience
 var strength               ## character damage modifier for power weapons
 var dexterity              ## character damage modifier for skill weapons
 var endurance              ## character resistance to melee
-var resist                 ## character resistence to range
+var foresight              ## character resistence to range
 var luck                   ## character probability modifier to land crits 
 var instinct = 0           ## measure of player skill
-var exp                    ## experience
 #############################
 
 # @ essential node (object) variables
@@ -44,6 +44,10 @@ var Sprite                 ##
 var Forward                ## to store Position2D node
 var MeleeRange             ## 
 #############################
+
+# @ character interaction
+var characers_in_range = []
+#------------------------------
 
  # @ Functionality 
 func animator(request):
@@ -60,6 +64,20 @@ func print_timer(sub,delta):
 # --------------------------------------------
 
 # @ Functions to execute at runtime
+func die():
+    queue_free()
+
+func take_damage(damage,type):
+    var true_damage
+    if type == "melee":
+        true_damage = damage - endurance # *** Implement a better equation
+    elif type == "range":
+        true_damage = damage - foresight
+	hp -= true_damage
+	print(str(self.name) + " Took " + str(true_damage) + " points of damage!")
+	if hp <= 0: 
+        die()
+        
 func _ready():
     # use default node names for these essential nodes 
     Anim = get_node("AnimationPlayer")

@@ -30,15 +30,17 @@ var forward
 var attack_range
 
 #bitmap player state
-var state = 00000000
-const START = 00000000
-const IN_AIR = 00000001
-const JUMPING = 00000010
-const LAUNCHED = 10000000
-const DAMAGED = 01000000
-const STAGGERED = 00100000
-const DIR_LEFT = 00010000
-const DIR_RIGHT = 00001000
+var state =       000000000
+const START =     000000000
+const DASHING =   000000001
+const IN_AIR =    000000010
+const JUMPING =   000000100
+const PARRYING =  000001000
+const LAUNCHED =  100000000
+const DAMAGED =   010000000
+const STAGGERED = 001000000
+const DIR_LEFT =  000100000
+const DIR_RIGHT = 000010000
 
 # position variables
 var velocity = Vector2()
@@ -110,12 +112,14 @@ func move(delta):
 			force.x -= WALK_FORCE
 			stop = false
 		direction = -1
+		#state = (state ^ DIR_RIGHT) | DIR_RIGHT
 		animator("run")
 	elif walk_right:
 		if velocity.x >= -WALK_MIN_SPEED and velocity.x < WALK_MAX_SPEED:
 			force.x += WALK_FORCE
 			stop = false
 		direction = 1
+		#state = (state ^ DIR_LEFT) | DIR_LEFT
 		animator("run")
 	
 	
@@ -196,10 +200,15 @@ func _physics_process(delta): # delta represents the time in which one frame exe
 	if is_on_floor():
 		# zero out air time when on floor
 		on_air_time = 0
+		state = state ^ IN_AIR
+	
+	if on_air_time == 0:
+		print(str(state))
+		state = state | IN_AIR
 		
 	if state == state | JUMPING and velocity.y > 0:
 		# If falling, no longer jumping
-		state = state ^ JUMPING
+		state = state ^ JUMPING # turn off the bit associated with JUMPING if it is on
 	
 	if on_air_time < JUMP_MAX_AIRBORNE_TIME and jump and not prev_jump_pressed and state != state | JUMPING:
 		# Jump must also be allowed to happen if the character left the floor a little bit ago.
@@ -209,6 +218,6 @@ func _physics_process(delta): # delta represents the time in which one frame exe
 	
 	on_air_time += delta
 	prev_jump_pressed = jump
-	
-	#print(str(delta))
+
+	print_timer(state, delta)
 #--------------------------------------------------------

@@ -81,7 +81,7 @@ visible = false
 show_behind_parent = true
 position = Vector2( 1.52588e-05, -6.38902 )
 frames = SubResource( 2 )
-frame = 2
+frame = 3
 playing = true
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -89,7 +89,6 @@ position = Vector2( -1.45937, -4.39948 )
 scale = Vector2( 0.798626, 0.798626 )
 texture = ExtResource( 7 )
 hframes = 6
-frame = 4
 
 [node name="Sprite2" type="Sprite" parent="."]
 visible = false
@@ -108,4 +107,3 @@ script = ExtResource( 9 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SwordRange"]
 shape = SubResource( 5 )
-
