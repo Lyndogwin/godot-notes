@@ -5,6 +5,7 @@ var direction = 1
 func _ready():
 	# Called when the node is added to the scene for the first time.
 	# Initialization here
+	attack_range = owner.get_node("swordPositon")
 	pass
 
 func direction(dir):

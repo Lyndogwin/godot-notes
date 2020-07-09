@@ -10,6 +10,7 @@ const WALK_MAX_SPEED = 400
 const STOP_FORCE = 3000
 const JUMP_SPEED = 400
 const JUMP_MAX_AIRBORNE_TIME = 0.2
+const UP = Vector2(0, -1) # desired floor normal
 # not used yet
 const SLIDE_STOP_VELOCITY = 1.0 # one pixel/second
 const SLIDE_STOP_MIN_TRAVEL = 1.0 # one pixel
@@ -29,10 +30,13 @@ var sprite
 var forward 
 var attack_range
 
-#bitmap player state
+# bitmap player state
+# ***in theory, I should be able to perform a bitwise AND op with these
+# in order to check for these states...***
 var state = 00000000
-const START = 00000000
-const IN_AIR = 00000001
+
+const START: int = 00000000
+const IN_AIR = 1
 const JUMPING = 00000010
 const LAUNCHED = 10000000
 const DAMAGED = 01000000
@@ -123,7 +127,6 @@ func move(delta):
 	forward.direction(direction) # change forward direction
 	
 	# flip sprite based on direction
-	
 	if direction != prev_dir:
 		if direction > 0:
 			sprite.flip_h = false
@@ -132,10 +135,8 @@ func move(delta):
 	
 	print_timer("forward position " + str(forward.position.x), delta)
 	
-	# ***TODO: there's an issue with this causing the stop to be true  
-	# for intermediate frames when max speed is reached
 	if stop:
-		animator("idle")
+		if !(walk_left || walk_right): animator("idle") # this stops the animator from switching to idle when run input is still in effect
 		var vsign = sign(velocity.x) # sign returns polarity of argument (-1 or 1)
 		var vlen = abs(velocity.x) # we're calling the abs of the x's magnitude the length
 	
@@ -167,6 +168,7 @@ func _on_SwordRange_body_exited(body):
 func attack(delta):
 	
 	if attack:
+		animator('attack')
 		for i in range(enemies_in_range.size()):
 			enemies_in_range[i].take_damage(attackpwr)
 		#var sword = SWORD.instance()
@@ -190,22 +192,26 @@ func _physics_process(delta): # delta represents the time in which one frame exe
 	# Integrate forces to velocity
 	velocity += force * delta	
 	# Integrate velocity into motion and move
-	velocity = move_and_slide(velocity, Vector2(0, -1)) # second argument is the decided floor normal 
-	                                                    # i.e. up vector of what should be considered floor
+	velocity = move_and_slide(velocity, UP)             # second argument is the decided floor normal 
+														# i.e. up vector of what should be considered floor
 	
 	if is_on_floor():
 		# zero out air time when on floor
 		on_air_time = 0
+	else: 
+		animator('falling')
 		
 	if jumping and velocity.y > 0:
 		# If falling, no longer jumping
 		jumping = false
+		
 	
 	if on_air_time < JUMP_MAX_AIRBORNE_TIME and jump and not prev_jump_pressed and not jumping:
 		# Jump must also be allowed to happen if the character left the floor a little bit ago.
 		# Makes controls more snappy.
 		velocity.y = -JUMP_SPEED
 		jumping = true
+		animator('jump')
 	
 	on_air_time += delta
 	prev_jump_pressed = jump
