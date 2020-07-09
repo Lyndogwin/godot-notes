@@ -91,7 +91,7 @@ func _ready():
 	sprite = get_node("Sprite")
 	anim = get_node("AnimationPlayer")
 	attack_range = get_node("SwordRange")
-	forward = get_node("ForwardPosition2D")
+	forward = get_node("ForwardPivot")
 	# connect signal => connect("signalname", object_to_listen, "full_signal_name")
 	attack_range.connect("body_entered", self, "_on_SwordRange_body_entered")
 	attack_range.connect("body_exited", self, "_on_SwordRange_body_exited") 
