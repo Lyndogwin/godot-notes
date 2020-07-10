@@ -132,11 +132,10 @@ visible = false
 show_behind_parent = true
 position = Vector2( 1.52588e-05, -6.38902 )
 frames = SubResource( 3 )
-frame = 3
+frame = 1
 playing = true
 
 [node name="Sprite" type="Sprite" parent="."]
-visible = false
 position = Vector2( 1.1198, 6.98445 )
 scale = Vector2( 0.798626, 0.798626 )
 texture = ExtResource( 7 )

@@ -1,3 +1,8 @@
+extends KinematicBody2D
+
+signal state_changed
+signal direction_changed(new_direction)
+
 var look_direction =  Vector2(1,0) setget set_look_direction
 
 var states_stack = []
@@ -20,7 +25,7 @@ func_ready():
     _change_state("idle")
 
 # the state machine delegates process and input callbacks to the current state
-# the state object  3e.g. Moce, then handles input, calcylates velocity
+# the state object  e.g. Move, then handles input, calcylates velocity
 # and move what I callled its "host", the player node (KinematicBody2D) in this case.
 func _physics_process(delta):
     current_state.update(delta)
@@ -73,6 +78,6 @@ func _change_state(state_name):
         pass
     
     func set_look_direction(value):
-        look_direction =  value
+        look_direction = value
         emit_signal("direction_changed", value)
 
