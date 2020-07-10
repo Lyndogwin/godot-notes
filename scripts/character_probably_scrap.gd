@@ -38,7 +38,7 @@ var endurance              ## character resistance to melee
 var resist                 ## character resistence to range
 var luck                   ## character probability modifier to land crits 
 var instinct = 0           ## measure of player skill
-var exp                    ## experience of the player
+var experience                    ## experience of the player
 #############################
 
 # @ essential node (object) variables

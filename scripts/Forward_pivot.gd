@@ -3,6 +3,9 @@ extends Position2D
 var direction = 1
 var previous_dir = 1
 
+var attack_range
+var sprite
+
 func _ready():
 	# Called when the node is added to the scene for the first time.
 	# Initialization here
