@@ -13,6 +13,7 @@ onready var states_map = {
 	"move": $States/Move,
 	"jump": $States/Jump,
 	"attack": $States/Attack,
+	"stagger": $States/Stagger,
 }
 
 func _ready():
@@ -40,6 +41,7 @@ func _input(event):
 
 func _on_animation_finished(anim_name):
 	current_state._on_animation_finished(anim_name)
+	
 
 func _change_state(state_name):
 	"""
@@ -52,13 +54,14 @@ func _change_state(state_name):
 
 	if state_name == "previous":
 		states_stack.pop_front()
-	elif state_name in ["jump", "attack", "falling"]:
+	elif state_name in ["jump", "attack"]:
 		states_stack.push_front(states_map[state_name])
 	elif state_name == "dead":
 		queue_free()
 		return
 	else:
 		var new_state = states_map[state_name]
+		print("state changed to: ", state_name)
 		states_stack[0] = new_state
 	
 	if state_name == "jump":

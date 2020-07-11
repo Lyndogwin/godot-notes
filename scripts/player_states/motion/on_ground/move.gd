@@ -32,4 +32,4 @@ func move(speed, direction):
 	owner.move_and_slide(velocity, Vector2(), 5, 2)
 	if owner.get_slide_count() == 0:
 		return
-	return owner.get_slide_colision(0)
+	return owner.get_slide_collision(0)

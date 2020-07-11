@@ -57,8 +57,8 @@ func move_horizontally(delta, direction):
 	owner.move_and_slide(horizontal_velocity)
 
 func animate_jump_height(delta):
-	vertical_speed -= GRAVITY *delta
-	height += vertical_speed *delta
+	vertical_speed -= GRAVITY * delta
+	height += vertical_speed * delta
 	height = max(0.0, height)
 
-	owner.get_node("FowardPivot").position.y = -height
+	owner.get_node("ForwardPivot").position.y = -height

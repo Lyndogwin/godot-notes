@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://scripts/player_states/motion/on_ground/move.gd" type="Script" id=1]
 [ext_resource path="res://scripts/Forward_pivot.gd" type="Script" id=2]
@@ -12,6 +12,8 @@
 [ext_resource path="res://scripts/player_states/motion/in_air/jump.gd" type="Script" id=10]
 [ext_resource path="res://scripts/state_machine.gd" type="Script" id=11]
 [ext_resource path="res://scripts/player_states/motion/on_ground/idle.gd" type="Script" id=12]
+[ext_resource path="res://scripts/player_states/combat/attack.gd" type="Script" id=13]
+[ext_resource path="res://scripts/player_states/combat/stagger.gd" type="Script" id=14]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -121,11 +123,9 @@ scale = Vector2( 1.5, 0.3 )
 script = ExtResource( 9 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ForwardPivot/SwordRange"]
-visible = false
 shape = SubResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 show_behind_parent = true
 scale = Vector2( 1, 2 )
 shape = SubResource( 2 )
@@ -135,7 +135,7 @@ visible = false
 show_behind_parent = true
 position = Vector2( 1.52588e-05, -6.38902 )
 frames = SubResource( 3 )
-frame = 3
+frame = 1
 playing = true
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -177,3 +177,8 @@ script = ExtResource( 1 )
 script = ExtResource( 10 )
 
 [node name="Attack" type="Node" parent="States"]
+script = ExtResource( 13 )
+
+[node name="Stagger" type="Node" parent="States"]
+script = ExtResource( 14 )
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]
