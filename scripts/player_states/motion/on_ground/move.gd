@@ -29,7 +29,7 @@ func update(delta):
 
 func move(speed, direction):
 	velocity = direction.normalized() * speed
-	owner.move_and_slide(velocity, Vector2(), 5, 2)
+	owner.move_and_slide(velocity, Vector2(0,-1), 5, 2)
 	if owner.get_slide_count() == 0:
 		return
 	return owner.get_slide_collision(0)

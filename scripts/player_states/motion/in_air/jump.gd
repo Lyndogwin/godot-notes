@@ -1,16 +1,5 @@
 extends "../motion.gd"
 
-export(float) var BASE_MAX_HORIZONTAL_SPEED = 400.0
-
-export(float) var AIR_ACCELERATION = 1000.0
-export(float) var AIR_DECELERATION = 2000.0
-export(float) var AIR_STEERING_POWER = 50.0
-
-export(float) var JUMP_HEIGHT = 120.0
-export(float) var JUMP_DIRATION = 0.8
-
-export(float) var GRAVITY = 1600.0
-
 var enter_velocity = Vector2()
 
 var max_horizontal_speed = 0.0
@@ -61,4 +50,6 @@ func animate_jump_height(delta):
 	height += vertical_speed * delta
 	height = max(0.0, height)
 
-	owner.get_node("ForwardPivot").position.y = -height
+	# owner.get_node("ForwardPivot").position.y = -height
+	
+	velocity.y = -height

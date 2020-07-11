@@ -6,7 +6,7 @@ signal finished(next_state_name)
 func enter():
     return
 
-# clean up ther state. Reinitialize calues like a timer
+# clean up ther state. Reinitialize values like a timer
 func exit():
     return
 

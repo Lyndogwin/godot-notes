@@ -31,7 +31,7 @@ animations = [ {
 length = 0.25
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
+tracks/0/path = NodePath("ForwardPivot/Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -47,7 +47,7 @@ tracks/0/keys = {
 length = 0.2
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
+tracks/0/path = NodePath("ForwardPivot/Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -63,7 +63,7 @@ tracks/0/keys = {
 length = 0.4
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
+tracks/0/path = NodePath("ForwardPivot/Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -79,7 +79,7 @@ tracks/0/keys = {
 length = 0.5
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
+tracks/0/path = NodePath("ForwardPivot/Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -95,7 +95,7 @@ tracks/0/keys = {
 length = 0.5
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
+tracks/0/path = NodePath("ForwardPivot/Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -125,6 +125,13 @@ script = ExtResource( 9 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ForwardPivot/SwordRange"]
 shape = SubResource( 1 )
 
+[node name="Sprite" type="Sprite" parent="ForwardPivot"]
+position = Vector2( 1.1198, -4.41554 )
+scale = Vector2( 0.798626, 0.798626 )
+texture = ExtResource( 7 )
+hframes = 23
+frame = 13
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 show_behind_parent = true
 scale = Vector2( 1, 2 )
@@ -137,13 +144,6 @@ position = Vector2( 1.52588e-05, -6.38902 )
 frames = SubResource( 3 )
 frame = 1
 playing = true
-
-[node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 1.1198, 6.98445 )
-scale = Vector2( 0.798626, 0.798626 )
-texture = ExtResource( 7 )
-hframes = 23
-frame = 13
 
 [node name="Sprite2" type="Sprite" parent="."]
 visible = false
