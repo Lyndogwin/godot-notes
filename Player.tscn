@@ -142,7 +142,7 @@ visible = false
 show_behind_parent = true
 position = Vector2( 1.52588e-05, -6.38902 )
 frames = SubResource( 3 )
-frame = 1
+frame = 3
 playing = true
 
 [node name="Sprite2" type="Sprite" parent="."]
@@ -181,4 +181,10 @@ script = ExtResource( 13 )
 
 [node name="Stagger" type="Node" parent="States"]
 script = ExtResource( 14 )
+
+[node name="Weapons" type="Node" parent="."]
+
+[node name="Melee" type="Node" parent="Weapons"]
+
+[node name="Projectile" type="Node" parent="Weapons"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]

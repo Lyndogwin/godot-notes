@@ -1,26 +1,6 @@
 extends "../state.gd"
 
-export(float) var BASE_MAX_HORIZONTAL_SPEED = 400.0
-
-export(float) var AIR_ACCELERATION = 1000.0
-export(float) var AIR_DECELERATION = 2000.0
-export(float) var AIR_STEERING_POWER = 50.0
-
-export(float) var JUMP_HEIGHT = 120.0
-export(float) var JUMP_DIRATION = 0.8
-
-export(float) var GRAVITY = 1600.0
-
-var FLOOR_NORMAL = Vector2(0,-1)
-
-var speed = 0.0
-
-var force = Vector2(0, GRAVITY)
-var velocity = Vector2()
-
-
 onready var pivot = owner.get_node("ForwardPivot")
-
 
 func handle_input(event):
 	if event.is_action_pressed("SIMULATE_DAMAGE"):
@@ -42,5 +22,5 @@ func update_look_direction(direction):
 	#owner.get_node("ForwardPivot").set_scale(Vector2(direction.x,1))
 
 func _physics_process(delta):
-	velocity += force * delta
+	velocity += global_force * delta
 	velocity = owner.move_and_slide(velocity, FLOOR_NORMAL)

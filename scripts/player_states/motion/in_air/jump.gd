@@ -2,13 +2,6 @@ extends "../motion.gd"
 
 var enter_velocity = Vector2()
 
-var max_horizontal_speed = 0.0
-var horizontal_speed = 0.0
-var horizontal_velocity = Vector2()
-
-var vertical_speed = 0.0
-var height = 0.0
-
 func initialize(speed, velocity):
 	horizontal_speed = speed
 	max_horizontal_speed = speed if speed > 0.0 else BASE_MAX_HORIZONTAL_SPEED
@@ -21,7 +14,7 @@ func enter():
 	horizontal_velocity = enter_velocity if input_direction else Vector2()
 	vertical_speed = 600.0
 
-	owner.get_node("AnimationPlayer").play("idle")
+	owner.get_node("AnimationPlayer").play("jump")
 
 func update(delta):
 	var input_direction = get_input_direction()
@@ -29,8 +22,8 @@ func update(delta):
 
 	move_horizontally(delta, input_direction)
 	animate_jump_height(delta)
-	if height <= 0.0:
-		emit_signal("finished", "previous")
+	if velocity.y <= 0.0:
+		emit_signal("finished", "previous") # signal that state is complete
 
 func move_horizontally(delta, direction):
 	if direction:
@@ -46,10 +39,12 @@ func move_horizontally(delta, direction):
 	owner.move_and_slide(horizontal_velocity)
 
 func animate_jump_height(delta):
-	vertical_speed -= GRAVITY * delta
-	height += vertical_speed * delta
-	height = max(0.0, height)
+	
+	#vertical_speed -= GRAVITY * delta # remove this line
+	#height += vertical_speed * delta
+	
+	#height = max(0.0, height)
 
 	# owner.get_node("ForwardPivot").position.y = -height
-	
-	velocity.y = -height
+	print(velocity.y)
+	velocity.y = -vertical_speed
